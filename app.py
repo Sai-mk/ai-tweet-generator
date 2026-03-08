@@ -1,4 +1,5 @@
 import streamlit as st
+from openai import OpenAI
 
 st.title("AI Brand Tweet Generator")
 
@@ -9,28 +10,25 @@ product = st.text_area("Product Description")
 
 if st.button("Generate Tweets"):
 
-    st.subheader("Brand Voice")
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-    st.write(f"""
-Tone: Friendly and engaging
-Audience: Customers interested in {industry}
-Themes: {campaign}, product highlights, brand awareness
-""")
+    prompt = f"""
+    You are a social media manager.
 
-    st.subheader("Generated Tweets")
+    Brand: {brand}
+    Industry: {industry}
+    Campaign Objective: {campaign}
+    Product: {product}
 
-    tweets = [
-        f"{brand} is changing the game in {industry}. Discover more today!",
-        f"Looking for the best in {industry}? {brand} has you covered.",
-        f"Introducing something exciting from {brand}! Stay tuned.",
-        f"Upgrade your experience with {brand}. #Innovation",
-        f"Did you know? {brand} is leading trends in {industry}.",
-        f"Don't miss out! {brand} brings you the best in {industry}.",
-        f"Experience quality and innovation with {brand}.",
-        f"Your journey with {brand} starts today!",
-        f"Join thousands who trust {brand} in the {industry} space.",
-        f"Ready to explore? Discover what {brand} offers today!"
-    ]
+    First analyze the brand voice in 3 bullet points.
 
-    for tweet in tweets:
-        st.write("•", tweet)
+    Then generate 10 engaging tweets matching that tone.
+    Include promotional, witty, and informative tweets.
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role":"user","content":prompt}]
+    )
+
+    st.write(response.choices[0].message.content)
