@@ -13,7 +13,7 @@ API_KEY = st.secrets["OPENROUTER_API_KEY"]
 def generate_tweets(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
 
-```
+
 headers = {
     "Authorization": f"Bearer {API_KEY}",
     "Content-Type": "application/json"
