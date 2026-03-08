@@ -11,7 +11,7 @@ product = st.text_area("Product Description")
 API_URL = "https://router.huggingface.co/hf-inference/models/google/flan-t5-large"
 
 headers = {
-    "Authorization": "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"
+    "Authorization": "Bearer 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"
 }
 
 def generate_tweets(prompt):
