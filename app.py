@@ -8,10 +8,10 @@ industry = st.text_input("Industry")
 campaign = st.text_input("Campaign Objective")
 product = st.text_area("Product Description")
 
-API_URL = "https://router.huggingface.co/hf-inference/models/google/flan-t5-large"
+API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 
 headers = {
-    "Authorization": "Bearer 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"
+    "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
 }
 
 def generate_tweets(prompt):
@@ -22,16 +22,13 @@ if st.button("Generate Tweets"):
 
     prompt = f"""
 Generate 10 engaging tweets for brand {brand}.
-
 Industry: {industry}
 Campaign: {campaign}
 Product: {product}
-
-Each tweet should be short and engaging.
+Make tweets short and catchy.
 """
 
     result = generate_tweets(prompt)
 
     st.subheader("Generated Tweets")
-
     st.write(result)
