@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+import requests
 
 st.title("AI Brand Tweet Generator")
 
@@ -10,25 +10,25 @@ product = st.text_area("Product Description")
 
 if st.button("Generate Tweets"):
 
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
     prompt = f"""
-    You are a social media manager.
+    Generate 10 engaging tweets for a brand.
 
     Brand: {brand}
     Industry: {industry}
-    Campaign Objective: {campaign}
+    Campaign: {campaign}
     Product: {product}
 
-    First analyze the brand voice in 3 bullet points.
-
-    Then generate 10 engaging tweets matching that tone.
-    Include promotional, witty, and informative tweets.
+    Tweets should be short, engaging, and social-media friendly.
     """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role":"user","content":prompt}]
-    )
+    API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 
-    st.write(response.choices[0].message.content)
+    response = requests.post(API_URL, json={"inputs": prompt})
+    result = response.json()
+
+    st.subheader("Generated Tweets")
+
+    if isinstance(result, list):
+        st.write(result[0]["generated_text"])
+    else:
+        st.write("AI is generating tweets... try again in a few seconds.")
