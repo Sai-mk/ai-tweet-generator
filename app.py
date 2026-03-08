@@ -33,11 +33,7 @@ return result["choices"][0]["message"]["content"]
 ```
 
 if st.button("Generate Tweets"):
-
-```
 prompt = f"""
-```
-
 Generate 10 engaging Twitter tweets.
 
 Brand Name: {brand}
