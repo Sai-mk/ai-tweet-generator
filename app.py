@@ -21,7 +21,7 @@ if st.button("Generate Tweets"):
     Tweets should be short, engaging, and social-media friendly.
     """
 
-    API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
+    API_URL = "https://router.huggingface.co/hf-inference/models/google/flan-t5-large"
 
     response = requests.post(API_URL, json={"inputs": prompt})
     result = response.json()
