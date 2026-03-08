@@ -11,26 +11,26 @@ if st.button("Generate Tweets"):
 
     st.subheader("Brand Voice")
 
-    st.write("""
-Tone: Engaging and brand specific  
-Audience: Target customers of the brand  
-Themes: Product promotion, trends, engagement
+    st.write(f"""
+Tone: Friendly and engaging
+Audience: Customers interested in {industry}
+Themes: {campaign}, product highlights, brand awareness
 """)
 
     st.subheader("Generated Tweets")
 
     tweets = [
-        "Tweet 1 related to the brand",
-        "Tweet 2 engaging customers",
-        "Tweet 3 promoting the product",
-        "Tweet 4 with witty brand tone",
-        "Tweet 5 informative tweet",
-        "Tweet 6 promotional tweet",
-        "Tweet 7 engaging tweet",
-        "Tweet 8 creative tweet",
-        "Tweet 9 brand awareness tweet",
-        "Tweet 10 call to action tweet"
+        f"{brand} is changing the game in {industry}. Discover more today!",
+        f"Looking for the best in {industry}? {brand} has you covered.",
+        f"Introducing something exciting from {brand}! Stay tuned.",
+        f"Upgrade your experience with {brand}. #Innovation",
+        f"Did you know? {brand} is leading trends in {industry}.",
+        f"Don't miss out! {brand} brings you the best in {industry}.",
+        f"Experience quality and innovation with {brand}.",
+        f"Your journey with {brand} starts today!",
+        f"Join thousands who trust {brand} in the {industry} space.",
+        f"Ready to explore? Discover what {brand} offers today!"
     ]
 
     for tweet in tweets:
-        st.write("- ", tweet)
+        st.write("•", tweet)
