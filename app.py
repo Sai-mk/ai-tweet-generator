@@ -30,7 +30,7 @@ response = requests.post(url, headers=headers, json=data)
 result = response.json()
 
 return result["choices"][0]["message"]["content"]
-```
+
 
 if st.button("Generate Tweets"):
 prompt = f"""
