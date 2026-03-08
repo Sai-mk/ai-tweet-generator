@@ -1,5 +1,5 @@
 import streamlit as st
-import requests
+import random
 
 st.title("AI Brand Tweet Generator")
 
@@ -10,28 +10,38 @@ product = st.text_area("Product Description")
 
 if st.button("Generate Tweets"):
 
-    prompt = f"""
-    Generate 10 engaging tweets for a brand.
+    st.subheader("Brand Voice")
 
-    Brand: {brand}
-    Industry: {industry}
-    Campaign: {campaign}
-    Product: {product}
+    tone = random.choice([
+        "fun and conversational",
+        "bold and motivational",
+        "informative and engaging",
+        "witty and playful"
+    ])
 
-    Tweets should be short, engaging, and social-media friendly.
-    """
+    audience = f"people interested in {industry}"
+    themes = f"{campaign}, product highlights, trending topics"
 
-    API_URL = "https://router.huggingface.co/hf-inference/models/google/flan-t5-large"
-
-    response = requests.post(API_URL, json={"inputs": prompt})
-    try:
-        result = response.json()
-    except:
-        st.write("AI model is waking up. Please click Generate Tweets again in a few seconds.")
-        st.stop()
+    st.write(f"**Tone:** {tone}")
+    st.write(f"**Audience:** {audience}")
+    st.write(f"**Themes:** {themes}")
 
     st.subheader("Generated Tweets")
-    if isinstance(result, list) and "generated_text" in result[0]:
-        st.write(result[0]["generated_text"])
-    else:
-        st.write(result)
+
+    tweets = [
+        f"{brand} is bringing something exciting to the {industry} world. Stay tuned! 🚀",
+        f"Looking for the best in {industry}? {brand} has you covered.",
+        f"{campaign} just got better with {brand}! Don’t miss out.",
+        f"Why everyone is talking about {brand} in the {industry} space 👀",
+        f"Upgrade your experience with {brand}.",
+        f"The future of {industry} starts with {brand}.",
+        f"Thousands already trust {brand}. Will you?",
+        f"{brand} is redefining innovation in {industry}.",
+        f"Ready to explore something new? {brand} is here.",
+        f"Your journey with {brand} starts today."
+    ]
+
+    random.shuffle(tweets)
+
+    for i, tweet in enumerate(tweets, start=1):
+        st.write(f"{i}. {tweet}")
