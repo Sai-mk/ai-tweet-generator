@@ -30,5 +30,5 @@ if st.button("Generate Tweets"):
 
     if isinstance(result, list) and "generated_text" in result[0]:
     st.write(result[0]["generated_text"])
-else:
+    else:
     st.write(result)
