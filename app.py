@@ -13,27 +13,27 @@ API_KEY = st.secrets["OPENROUTER_API_KEY"]
 def generate_tweets(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
 
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
 
-headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json"
-}
+    data = {
+        "model": "openai/gpt-3.5-turbo",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ]
+    }
 
-data = {
-    "model": "openai/gpt-3.5-turbo",
-    "messages": [
-        {"role": "user", "content": prompt}
-    ]
-}
+    response = requests.post(url, headers=headers, json=data)
+    result = response.json()
 
-response = requests.post(url, headers=headers, json=data)
-result = response.json()
-
-return result["choices"][0]["message"]["content"]
+    return result["choices"][0]["message"]["content"]
 
 
 if st.button("Generate Tweets"):
-prompt = f"""
+
+    prompt = f"""
 Generate 10 engaging Twitter tweets.
 
 Brand Name: {brand}
@@ -42,17 +42,16 @@ Campaign Objective: {campaign}
 Product Description: {product}
 
 Rules:
+- Tweets must be short and catchy
+- Include emojis
+- Include hashtags
+- Each tweet must be unique
+"""
 
-* Tweets must be short and catchy
-* Include emojis
-* Include hashtags
-* Each tweet must be unique
-  """
+    tweets = generate_tweets(prompt)
 
-  tweets = generate_tweets(prompt)
+    st.subheader("Generated Tweets")
 
-  st.subheader("Generated Tweets")
-
-  for tweet in tweets.split("\n"):
-  if tweet.strip():
-  st.write(tweet)
+    for tweet in tweets.split("\n"):
+        if tweet.strip():
+            st.write(tweet)
