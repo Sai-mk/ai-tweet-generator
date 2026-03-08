@@ -24,7 +24,11 @@ if st.button("Generate Tweets"):
     API_URL = "https://router.huggingface.co/hf-inference/models/google/flan-t5-large"
 
     response = requests.post(API_URL, json={"inputs": prompt})
-    result = response.json()
+    try:
+        result = response.json()
+    except:
+        st.write("AI model is waking up. Please click Generate Tweets again in a few seconds.")
+        st.stop()
 
     st.subheader("Generated Tweets")
 
