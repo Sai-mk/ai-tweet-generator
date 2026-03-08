@@ -11,7 +11,7 @@ product = st.text_area("Product Description")
 API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 def generate_tweets(prompt):
-url = "https://openrouter.ai/api/v1/chat/completions"
+    url = "https://openrouter.ai/api/v1/chat/completions"
 
 ```
 headers = {
