@@ -29,6 +29,6 @@ if st.button("Generate Tweets"):
     st.subheader("Generated Tweets")
 
     if isinstance(result, list) and "generated_text" in result[0]:
-    st.write(result[0]["generated_text"])
+        st.write(result[0]["generated_text"])
     else:
-    st.write(result)
+        st.write(result)
